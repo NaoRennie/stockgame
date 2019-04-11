@@ -2,18 +2,19 @@
   <div class="panel">
     <div class="panel-head">
       <h3>{{ stock.name }}</h3>
-      <div>(price: {{ stock.price }})</div>
+      <div>(price: {{ stock.price }}| quantity: {{ stock.quantity }})</div>
     </div>
     <div class="panel-body">
       <input type="number" class="form-contoal" placeholder="Quantity" v-model="quantity">
     </div>
     <div>
-      <button class="btn btn-success" @click="buyStock" :disabled="quantity<=0 ">Buy</button>
+      <button class="btn btn-success" @click="sellStock" :disabled="quantity<=0 ">sell</button>
     </div>
   </div>
 </template>
 
 <script>
+import { mapActions } from "vuex";
 export default {
   name: "Stock",
   props: ["stock"],
@@ -23,15 +24,17 @@ export default {
     };
   },
   methods: {
-    buyStock() {
+    ...mapActions({
+      placeSellOrder: "sellStock"
+    }),
+    sellStock() {
+      console.log(this.stock);
       const order = {
         id: this.stock.id,
         stockPrice: this.stock.price,
         quantity: this.quantity
       };
-      // eslint-disable-next-line
-      console.log(order);
-      this.$store.dispatch("buyStock", order);
+      this.placeSellOrder(order);
       this.quantity = 0;
     }
   }
@@ -39,23 +42,4 @@ export default {
 </script>
 
 <style>
-.panel {
-  padding: 10px;
-  margin: 30px;
-  display: inline-block;
-  width: 200px;
-  height: 150px;
-  border: solid #32a1ce;
-}
-.panel-head {
-  background-color: aliceblue;
-  border-bottom-color: black;
-}
-.panel-body {
-  padding-top: 20px;
-}
-.btn-success {
-  margin-top: 10px;
-  margin-left: 130px;
-}
 </style>
