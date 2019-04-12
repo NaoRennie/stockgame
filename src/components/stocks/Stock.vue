@@ -5,10 +5,20 @@
       <div>(price: {{ stock.price }})</div>
     </div>
     <div class="panel-body">
-      <input type="number" class="form-contoal" placeholder="Quantity" v-model="quantity">
+      <input
+        type="number"
+        class="form-contoal"
+        placeholder="Quantity"
+        v-model="quantity"
+        :class="{ danger: insufficientFunds }"
+      >
     </div>
     <div>
-      <button class="btn btn-success" @click="buyStock" :disabled="quantity<=0 ">Buy</button>
+      <button
+        class="btn btn-success"
+        @click="buyStock"
+        :disabled="insufficientFunds || quantity<=0 "
+      >{{ insufficientFunds ? '資金不足です' : '購入' }}</button>
     </div>
   </div>
 </template>
@@ -21,6 +31,14 @@ export default {
     return {
       quantity: 0
     };
+  },
+  computed: {
+    funds() {
+      return this.$store.getters.funds;
+    },
+    insufficientFunds() {
+      return this.quantity * this.stock.price > this.funds;
+    }
   },
   methods: {
     buyStock() {
@@ -56,6 +74,14 @@ export default {
 }
 .btn-success {
   margin-top: 10px;
-  margin-left: 130px;
+  margin-left: 80px;
+}
+.btn {
+  width: 100px;
+}
+</style>
+<style scoped>
+.danger {
+  border: solid 1px red;
 }
 </style>

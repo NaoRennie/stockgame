@@ -4,10 +4,16 @@ import Home from "./components/Home";
 import Portfolio from "./components/portfolio/Portfolio";
 import Stocks from "./components/stocks/Stocks";
 import store from "./store/store";
+import VueResource from "vue-resource";
 
 import App from "./App.vue";
 
 Vue.use(VueRouter);
+Vue.use(VueResource);
+
+Vue.filter("currency", value => {
+  return "¥" + value.toLocaleString();
+});
 
 export const router = new VueRouter({
   mode: "history",

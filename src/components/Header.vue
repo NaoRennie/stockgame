@@ -8,27 +8,29 @@
       <a>portfolio</a>
     </router-link>
     <div class="right menu">
-      <a class="active ui item">End day</a>
-      <a class="active ui item">
-        <div class="ui dropdown">
-          <div class="text">Save&Load</div>
-          <i class="dropdown icon"></i>
-          <div class="menu">
-            <div class="item">
-              <span class="description">ctrl + o</span>
-              Open...
-            </div>
-            <div class="item">Load</div>
-          </div>
-        </div>
-      </a>
+      <a class="active ui item" @click="endDay">End day</a>
+      <a class="active ui item">Save data</a>
+      <a class="active ui item">Load data</a>
+      <strong class="active ui item">Funds: {{ funds | currency }}</strong>
     </div>
   </div>
 </template>
 
 <script>
+import { mapActions } from "vuex";
 export default {
-  name: "Header"
+  name: "Header",
+  computed: {
+    funds() {
+      return this.$store.getters.funds;
+    }
+  },
+  methods: {
+    ...mapActions(["randomizeStocks"]),
+    endDay() {
+      this.randomizeStocks();
+    }
+  }
 };
 </script>
 

@@ -5,10 +5,21 @@
       <div>(price: {{ stock.price }}| quantity: {{ stock.quantity }})</div>
     </div>
     <div class="panel-body">
-      <input type="number" class="form-contoal" placeholder="Quantity" v-model="quantity">
+      <input
+        type="number"
+        class="form-contoal"
+        placeholder="Quantity"
+        v-model="quantity"
+        :class="{ danger:insufficientQuantity }"
+      >
     </div>
     <div>
-      <button class="btn btn-success" @click="sellStock" :disabled="quantity<=0 ">sell</button>
+      <button
+        class="btn btn-success"
+        @click="sellStock"
+        :disabled="
+      insufficientQuantity || quantity<=0 "
+      >{{ insufficientQuantity ? '株数不足': '販売' }}</button>
     </div>
   </div>
 </template>
@@ -22,6 +33,11 @@ export default {
     return {
       quantity: 0
     };
+  },
+  computed: {
+    insufficientQuantity() {
+      return this.quantity > this.stock.quantity;
+    }
   },
   methods: {
     ...mapActions({
@@ -42,4 +58,9 @@ export default {
 </script>
 
 <style>
+</style>
+<style scoped>
+.danger {
+  border: solid 1px red;
+}
 </style>

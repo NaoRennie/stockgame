@@ -1,10 +1,10 @@
 <template>
   <div class="contianer">
     <Header></Header>
-    <!-- <EachCompany></EachCompany> -->
-
     <div class="ui segment">
-      <router-view></router-view>
+      <transition name="slide" mode="out-in">
+        <router-view></router-view>
+      </transition>
     </div>
   </div>
 </template>
@@ -25,33 +25,31 @@ export default {
 </script>
 
 <style>
-.slide-enter {
-  /* transform: rotateY(0deg) */
-}
 .slide-enter-active {
-  animation: slide-in 1s ease-out forwards;
-}
-.slide-leave {
-  /* transform: rotateY(0deg) */
+  animation: slide-in 200ms ease-out forwards;
 }
 .slide-leave-active {
-  animation: slide-out 1s ease-out forwards;
+  animation: slide-out 200ms ease-out forwards;
 }
 @keyframes slide-in {
   from {
-    transform: translateY(0);
+    transform: translateY(-30px);
+    opacity: 0;
   }
   to {
-    transform: translateY(-30px);
+    transform: translateY(0);
+    opacity: 1;
   }
 }
 
 @keyframes slide-out {
   from {
-    transform: translateY(-30px);
+    transform: translateY(0);
+    opacity: 1;
   }
   to {
-    transform: translateY(0);
+    transform: translateY(-30px);
+    opacity: 0;
   }
 }
 .segment {
