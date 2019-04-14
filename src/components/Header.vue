@@ -1,17 +1,17 @@
 <template>
   <div class="ui secondary pointing menu">
-    <router-link class="active item" to="/">Stock Trader</router-link>
+    <router-link class="active item" to="/">STOCK TRADER</router-link>
     <router-link activeClass="active" class="active item" to="/stocks" tag="li">
-      <a>Stocks</a>
+      <a>株</a>
     </router-link>
     <router-link activeClass="active" class="active item" to="/portfolio" tag="li">
-      <a>portfolio</a>
+      <a>所有株</a>
     </router-link>
     <div class="right menu">
       <a class="active ui item" @click="endDay">End day</a>
-      <a class="active ui item">Save data</a>
-      <a class="active ui item">Load data</a>
-      <strong class="active ui item">Funds: {{ funds | currency }}</strong>
+      <!-- <a class="active ui item">Save data</a>
+      <a class="active ui item">Load data</a>-->
+      <strong class="active ui item">全資産: {{ funds | currency }}</strong>
     </div>
   </div>
 </template>
