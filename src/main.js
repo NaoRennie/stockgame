@@ -11,6 +11,8 @@ import App from "./App.vue";
 Vue.use(VueRouter);
 Vue.use(VueResource);
 
+Vue.http.options.root = "https://stock-9c452.firebaseio.com/";
+
 Vue.filter("currency", value => {
   return "¥" + value.toLocaleString();
 });
